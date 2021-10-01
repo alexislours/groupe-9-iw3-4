@@ -15,5 +15,9 @@ test:
 
 deploy:
   stage: deploy
+  image: ruby:3.0
+  only:
+    - main
   script:
-    - echo "deploy"
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP --api_key=$HEROKU_API_KEY
