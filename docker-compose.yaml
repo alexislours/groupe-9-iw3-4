@@ -13,7 +13,7 @@ services:
       - app
 
   database:
-    image: mysql:5.5
+    image: mariadb:10
     ports:
       - 3306:3306
     volumes:

@@ -1,4 +1,4 @@
-FROM php:5.6-apache
+FROM php:8-apache
 
 #COPY php.ini /usr/local/etc/php/php.ini
 
@@ -6,18 +6,17 @@ WORKDIR /var/www/html/
 
 RUN apt-get update && apt-get install -y \
         libpng-dev \
-        zlib1g-dev \
+        libzip-dev \
         libxml2-dev \
         libonig-dev \
         libmemcached-dev \
-        zlib1g-dev \
         curl \
         zip \
         unzip \
         openssl \
         libssl-dev \
         libcurl4-openssl-dev \
-    && pecl install memcached-2.2.0 \
+    && pecl install memcached \
     && docker-php-ext-configure gd \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install mbstring pdo pdo_mysql mysqli zip \
