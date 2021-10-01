@@ -1,0 +1,23 @@
+stages: 
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: php:8
+  script:
+    - apt-get update && apt-get install -y --no-install-recommends git zip unzip
+    - curl --silent --show-error https://getcomposer.org/installer | php
+    - php composer.phar install --working-dir=src
+    - ./src/vendor/bin/phpstan analyse src/app
+    - ./src/vendor/bin/php-cs-fixer fix src/app
+    - ./src/vendor/bin/phpmd src/app/Http ansi cleancode,codesize,controversial,design,naming,unusedcode
+
+deploy:
+  stage: deploy
+  image: ruby:3.0
+  only:
+    - main
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP --api_key=$HEROKU_API_KEY
