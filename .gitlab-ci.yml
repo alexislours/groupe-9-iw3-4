@@ -12,8 +12,6 @@ test:
     - ./src/vendor/bin/phpstan analyse src/app
     - ./src/vendor/bin/php-cs-fixer fix src/app
     - ./src/vendor/bin/phpmd src/app/Http ansi cleancode,codesize,controversial,design,naming,unusedcode
-    - chmod +x /usr/local/bin/phpunit
-    - phpunit src/tests/ListingTest.php
 
 deploy:
   stage: deploy
