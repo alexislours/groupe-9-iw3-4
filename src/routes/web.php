@@ -15,3 +15,4 @@
 */
 
 $router->get('/', ListingController::class);
+$router->get('/time', TimeController::class);
